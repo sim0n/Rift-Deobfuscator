@@ -34,7 +34,6 @@ public class Deobfuscator {
         (transformerManager = new TransformerManager()).init();
         (classManager = new ClassManager()).init();
 
-
         logger.printLogo();
 
         transformerManager.getTransformers().forEach(transformer -> {
