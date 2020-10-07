@@ -1,4 +1,4 @@
-package net.rifttech.deobfuscator.transformer.impl.generic;
+package net.rifttech.deobfuscator.transformer.impl.generic.number;
 
 import net.rifttech.deobfuscator.transformer.Transformer;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -7,12 +7,13 @@ import org.objectweb.asm.tree.LdcInsnNode;
 
 /**
  * This simplifies int xor operations
+ * Example: 4127412 ^ 4819244
  */
 public class IntXorNumber extends Transformer {
     public IntXorNumber() {
         super("Successfully simplified {} int xor operations.",
-                insn -> insn.getOpcode() == LDC && ((LdcInsnNode) insn).cst instanceof Integer,
-                insn -> insn.getOpcode() == LDC && ((LdcInsnNode) insn).cst instanceof Integer,
+                IS_INTEGER,
+                IS_INTEGER,
                 insn -> insn.getOpcode() == IXOR);
     }
 

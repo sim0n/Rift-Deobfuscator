@@ -1,16 +1,18 @@
 package net.rifttech.deobfuscator.transformer;
 
 import net.rifttech.deobfuscator.Deobfuscator;
+import net.rifttech.deobfuscator.helper.TransformerHelper;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class Transformer implements Opcodes {
+public abstract class Transformer implements TransformerHelper {
     protected final Deobfuscator deobfuscator = Deobfuscator.getInstance();
 
     private final String outputFormat;
@@ -38,9 +40,12 @@ public abstract class Transformer implements Opcodes {
 
                     int stage = 0;
 
+                    List<AbstractInsnNode> insns = new ArrayList<>();
                     // We use a do while loop because we want it to execute at least once
                     do {
                         if (pattern.get(stage).test(insn)) {
+                            insns.add(insn);
+
                             if (++stage == pattern.size()) { // We reached the final stage
 
                                 // Handle the actual deobfuscation and replace the instruction with our own
@@ -50,8 +55,10 @@ public abstract class Transformer implements Opcodes {
 
                                 // Reset the stage so we can deobfuscate more stuff
                                 stage = 0;
+                                insns.clear();
                             }
                         } else {
+                            insns.clear();
                             stage = 0;
                         }
                     } while ((insn = insn.getNext()) != null);

@@ -6,11 +6,15 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 
+/**
+ * This decrypts strings
+ * Example: xor(뢴뢹뢰뢰뢳룼뢫뢳뢮뢰뢸, 1267841244)
+ */
 public class XorString extends Transformer {
     public XorString() {
         super("Successfully decrypted {} strings.",
-                insn -> insn.getOpcode() == LDC && ((LdcInsnNode) insn).cst instanceof String, // encrypted string
-                insn -> insn.getOpcode() == LDC && ((LdcInsnNode) insn).cst instanceof Integer, // encryption key
+                IS_STRING, // encrypted string
+                IS_INTEGER, // encryption key
                 insn -> {
                     if (insn.getOpcode() == INVOKESTATIC) {
                         MethodInsnNode method = (MethodInsnNode) insn;
@@ -47,5 +51,4 @@ public class XorString extends Transformer {
 
         return new String(array);
     }
-
 }

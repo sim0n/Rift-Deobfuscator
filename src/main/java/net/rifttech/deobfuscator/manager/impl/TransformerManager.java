@@ -3,8 +3,9 @@ package net.rifttech.deobfuscator.manager.impl;
 import lombok.Getter;
 import net.rifttech.deobfuscator.manager.Manager;
 import net.rifttech.deobfuscator.transformer.Transformer;
-import net.rifttech.deobfuscator.transformer.impl.generic.IntXorNumber;
-import net.rifttech.deobfuscator.transformer.impl.generic.LongXorNumber;
+import net.rifttech.deobfuscator.transformer.impl.generic.number.IntReverseNumber;
+import net.rifttech.deobfuscator.transformer.impl.generic.number.IntXorNumber;
+import net.rifttech.deobfuscator.transformer.impl.generic.number.LongXorNumber;
 import net.rifttech.deobfuscator.transformer.impl.radon.XorString;
 import org.atteo.classindex.ClassIndex;
 
@@ -36,6 +37,6 @@ public class TransformerManager implements Manager {
             return;
         }
 
-        transformers.addAll(Arrays.asList(new IntXorNumber(), new LongXorNumber(), new XorString()));
+        transformers.addAll(Arrays.asList(new IntXorNumber(), new LongXorNumber(), new XorString(), new IntReverseNumber()));
     }
 }

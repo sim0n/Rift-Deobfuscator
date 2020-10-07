@@ -1,4 +1,4 @@
-package net.rifttech.deobfuscator.transformer.impl.generic;
+package net.rifttech.deobfuscator.transformer.impl.generic.number;
 
 import net.rifttech.deobfuscator.transformer.Transformer;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -7,12 +7,13 @@ import org.objectweb.asm.tree.LdcInsnNode;
 
 /**
  * This simplifies long xor operations
+ * Example: 4127412L ^ 4819244L
  */
 public class LongXorNumber extends Transformer {
     public LongXorNumber() {
         super("Successfully simplified {} long xor operations.",
-                insn -> insn.getOpcode() == LDC && ((LdcInsnNode) insn).cst instanceof Long,
-                insn -> insn.getOpcode() == LDC && ((LdcInsnNode) insn).cst instanceof Long,
+                IS_LONG,
+                IS_LONG,
                 insn -> insn.getOpcode() == LXOR);
     }
 
