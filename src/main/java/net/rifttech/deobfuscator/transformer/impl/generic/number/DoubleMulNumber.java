@@ -20,7 +20,7 @@ public class DoubleMulNumber extends Transformer {
     @Override
     public AbstractInsnNode handle(AbstractInsnNode insn, AbstractInsnNode previous, InsnList instructions) {
         double a = (double) ((LdcInsnNode) previous.getPrevious()).cst;
-        double b = (int) ((LdcInsnNode) previous).cst;
+        double b = (double) ((LdcInsnNode) previous).cst;
 
         removeInstructions(insn, instructions);
 
